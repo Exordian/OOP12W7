@@ -47,6 +47,13 @@ public class Map {
 		for(Thread t : cars) {
 			t.start();
 		}
+		for(Thread t : cars)
+			try {
+				t.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 	void registerCar(Car c) {
