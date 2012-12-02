@@ -9,6 +9,7 @@ public abstract class Car extends Thread {
 	private Integer score;
 	private int speed; // sleep in ms
 	protected Map m;
+	protected Strategy strategy;
 	private boolean gameStopped;
 	private Orientation o;
 	private Direction d;
@@ -16,8 +17,9 @@ public abstract class Car extends Thread {
 	protected int x = 0;
 	protected int y = 0;
 
-	public Car(Map m, int speed) {
+	public Car(Map m, int speed, Strategy strategy) {
 		this.m = m;
+		this.strategy = strategy;
 		gameStopped = false;
 	}
 
@@ -41,16 +43,20 @@ public abstract class Car extends Thread {
 	public void stopGame() {
 		gameStopped = true;
 	}
-	
+
 	public Direction getDirection() {
-		synchronized(d) { return d; }
+		return d;
+	}
+
+	public void setOrientation(Orientation o) {
+		this.o = o;
 	}
 
 	public Orientation getOrientation() {
 		synchronized(o) { return o; }
 	}
 
-	public void changeOrientation() {
+	public void changeOrientation() { //TODO nur nötig wenn randbehandlung != exception
 		synchronized(o) { 
 			if (this.o == Orientation.NORTH) {
 				this.o = Orientation.SOUTH;
@@ -64,13 +70,95 @@ public abstract class Car extends Thread {
 		}
 	}
 
-	protected abstract void drive();
+	public void drive() {
+		Field[][] field = m.getMap();
+		int tempX = this.x;
+		int tempY = this.y;
+
+		if (this.getOrientation() == Orientation.EAST) {
+			if (this.getDirection() == Direction.Forward) {
+				tempX += 1;
+			} else if (this.getDirection() == Direction.Left) {
+				tempY -= 1;
+			} else if (this.getDirection() == Direction.Right) {
+				tempY += 1;
+			} else if (this.getDirection() == Direction.LeftForward) {
+				tempY -= 1;
+				tempX += 1;
+			} else if (this.getDirection() == Direction.RightForward) {
+				tempY += 1;
+				tempX += 1;
+			}			
+		} else if (this.getOrientation() == Orientation.NORTH) {
+			if (this.getDirection() == Direction.Forward) {
+				tempY -= 1;
+			} else if (this.getDirection() == Direction.Left) {
+				tempX -= 1;
+			} else if (this.getDirection() == Direction.Right) {
+				tempX += 1;
+			} else if (this.getDirection() == Direction.LeftForward) {
+				tempX -= 1;
+				tempY += 1;
+			} else if (this.getDirection() == Direction.RightForward) {
+				tempX += 1;
+				tempY += 1;
+			}
+		} else if (this.getOrientation() == Orientation.WEST) {
+			if (this.getDirection() == Direction.Forward) {
+				tempX -= 1;
+			} else if (this.getDirection() == Direction.Left) {
+				tempY += 1;
+			} else if (this.getDirection() == Direction.Right) {
+				tempY -= 1;
+			} else if (this.getDirection() == Direction.LeftForward) {
+				tempX -= 1;
+				tempY += 1;
+			} else if (this.getDirection() == Direction.RightForward) {
+				tempX -= 1;
+				tempY -= 1;
+			}
+		} else if (this.getOrientation() == Orientation.SOUTH) {
+			if (this.getDirection() == Direction.Forward) {
+				tempY += 1;
+			} else if (this.getDirection() == Direction.Left) {
+				tempX += 1;
+			} else if (this.getDirection() == Direction.Right) {
+				tempX -= 1;
+			} else if (this.getDirection() == Direction.LeftForward) {
+				tempX += 1;
+				tempY += 1;
+			} else if (this.getDirection() == Direction.RightForward) {
+				tempX -= 1;
+				tempY += 1;
+			}
+		}
+
+		if (tempX >= m.getW() || tempX <= 0 || tempY >= m.getH() || tempY <= 0) {
+			this.changeOrientation();
+		}
+		field[this.y][this.x].moveAway(this);
+		field[tempY][tempX].putCar(this);
+		this.setX(tempX);
+		this.setY(tempY);
+	}
+
+	public void update(int round) {
+		if (this instanceof FastCar) {
+			if (strategy.getDirectionFromStrategy(round) == Direction.RightForward) {
+				d = Direction.Right;
+			} else if (strategy.getDirectionFromStrategy(round) == Direction.LeftForward) {
+				d = Direction.Left;
+			}
+		} else if (this instanceof AgileCar) {
+			d = strategy.getDirectionFromStrategy(round);
+		}
+	}
 
 	@Override
 	public void run() {
 		int round = 0;
 		while(!gameStopped) {
-
+			update(round);
 			drive();
 
 			if(score >= 10 || round >= 150)

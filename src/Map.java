@@ -47,6 +47,7 @@ public class Map {
 		int x = randomGenerator.nextInt(this.w + 1);
 		c.setX(x);
 		c.setY(y);
+		c.setOrientation(Orientation.values()[randomGenerator.nextInt(3)]);
 		map[y][x].putCar(c);
 	}
 }
