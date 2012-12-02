@@ -33,8 +33,12 @@ public class Map {
 
 	void stopGame() {
 		synchronized (cars) {
+/*
 			for(Car c : cars)
 				c.stopGame();
+		*/
+			for(Thread t : cars)
+				t.interrupt();
 		}
 		Test.addToLog("Game stopped!");
 	}
@@ -51,8 +55,7 @@ public class Map {
 			try {
 				t.join();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				// game stopped
 			}
 	}
 	

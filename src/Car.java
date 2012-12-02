@@ -184,8 +184,7 @@ public abstract class Car extends Thread {
 			try {
 				Thread.sleep(speed);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				this.stopGame(); // or just break
 			}
 			round++;
 		}
