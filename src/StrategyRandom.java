@@ -14,7 +14,7 @@ public class StrategyRandom extends Strategy {
 	}
 
 	protected Direction[] makeStrategy() {
-		Direction[] list = new Direction[] {};
+		Direction[] list = new Direction[50];
 		Random randomGenerator = new Random();
 		int i = 0;
 		while (i <= 50) {
