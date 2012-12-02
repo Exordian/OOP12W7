@@ -17,6 +17,7 @@ public class Map {
 		this.w = w;
 		map = new Field[h][w]; // 10 is the max number of cars on one field
 		cars = new ArrayList<Car>();
+		Test.addToLog("Map created(width: " + this.h + ", height: " + this.w + ")");
 	}
 	
 	int getH() {
@@ -32,6 +33,7 @@ public class Map {
 			for(Car c : cars)
 				c.stopGame();
 		}
+		Test.addToLog("Game stopped!");
 	}
 	
 	Field[][] getMap() {
@@ -49,5 +51,6 @@ public class Map {
 		c.setY(y);
 		c.setOrientation(Orientation.values()[randomGenerator.nextInt(3)]);
 		map[y][x].putCar(c);
+		Test.addToLog("New Car: " + c.getCarName() + ", registered at x = " + x + ", y = " + y + "!");
 	}
 }

@@ -13,14 +13,20 @@ public abstract class Car extends Thread {
 	private boolean gameStopped;
 	private Orientation o;
 	private Direction d;
+	private String name;
 
 	protected int x = 0;
 	protected int y = 0;
 
-	public Car(Map m, int speed, Strategy strategy) {
+	public Car(Map m, String name, int speed, Strategy strategy) {
 		this.m = m;
 		this.strategy = strategy;
+		this.name = name;
 		gameStopped = false;
+	}
+	
+	public String getCarName() {
+		return this.name;
 	}
 
 	public void setX(int x) {
@@ -138,8 +144,9 @@ public abstract class Car extends Thread {
 		}
 		field[this.y][this.x].moveAway(this);
 		field[tempY][tempX].putCar(this);
+		Test.addToLog("Car " + this.getCarName() + " moved from x = " + this.x + ", y = " + this.y + " to x = " + tempX + ", y = " + tempY);		
 		this.setX(tempX);
-		this.setY(tempY);
+		this.setY(tempY);		
 	}
 
 	public void update(int round) {
@@ -158,11 +165,14 @@ public abstract class Car extends Thread {
 	public void run() {
 		int round = 0;
 		while(!gameStopped) {
+			Test.addToLog("Round " + round + ":");
 			update(round);
 			drive();
 
-			if(score >= 10 || round >= 150)
+			if(score >= 10 || round >= 150) {
 				m.stopGame();
+				Test.addToLog("Game has ended!");
+			}
 
 			try {
 				Thread.sleep(speed);

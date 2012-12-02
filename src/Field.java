@@ -18,19 +18,29 @@ public class Field {
 			for(Car lc : cars) {
 				if(c.getOrientation() == Orientation.NORTH && lc.getOrientation() != Orientation.SOUTH) {
 					lc.scoreDown();
+					Test.addToLog(lc.getCarName() + " has lost a point!");
 					c.scoreUp();
+					Test.addToLog(c.getCarName() + " has scored a point!");
 				} else if(c.getOrientation() == Orientation.SOUTH && lc.getOrientation() != Orientation.NORTH) {
 					lc.scoreDown();
+					Test.addToLog(lc.getCarName() + " has lost a point!");
 					c.scoreUp();
+					Test.addToLog(c.getCarName() + " has scored a point!");
 				} else if(c.getOrientation() == Orientation.EAST && lc.getOrientation() != Orientation.WEST) {
 					lc.scoreDown();
+					Test.addToLog(lc.getCarName() + " has lost a point!");
 					c.scoreUp();
+					Test.addToLog(c.getCarName() + " has scored a point!");
 				} else if(c.getOrientation() == Orientation.WEST && lc.getOrientation() != Orientation.EAST) {
 					lc.scoreDown();
+					Test.addToLog(lc.getCarName() + " has lost a point!");
 					c.scoreUp();
+					Test.addToLog(c.getCarName() + " has scored a point!");
 				} else { // both nose => score both up
 					lc.scoreUp();
+					Test.addToLog(lc.getCarName() + " has scored a point!");
 					c.scoreUp();
+					Test.addToLog(c.getCarName() + " has scored a point!");
 				}
 			}
 			cars.add(c);

@@ -14,6 +14,7 @@ public abstract class Strategy {
 		this.strategyList = makeStrategy();
 		this.maxH = m.getH();
 		this.maxW = m.getW();
+		Test.addToLog("Strategy added!");
 	}
 	
 	protected abstract Direction[] makeStrategy();

@@ -7,7 +7,7 @@
  */
 public class FastCar extends Car {
 
-	public FastCar(Map m, Strategy strategy) {
-		super(m, 10, strategy);
+	public FastCar(Map m, String name, Strategy strategy) {
+		super(m, name, 10, strategy);
 	}
 }
