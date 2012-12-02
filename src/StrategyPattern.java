@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 
 /**
  *
@@ -5,32 +7,26 @@
  * @since December 2012
  *
  */
-public class StrategyPattern extends Strategy {
+public class StrategyPattern implements Strategy {
 
-	public StrategyPattern(Map m) {
-		super(m);
+	ArrayList<Direction> strategy;
+	int state;
+	
+	public StrategyPattern() {
+		strategy = new ArrayList<Direction>();
+		strategy.add(Direction.Left);
+		strategy.add(Direction.Left);
+		strategy.add(Direction.Right);
+		strategy.add(Direction.Right);
+		strategy.add(Direction.Left);
+		strategy.add(Direction.Right);
+		strategy.add(Direction.Right);
+		state = 0;
 	}
-
-	protected Direction[] makeStrategy() {
-		Direction[] list = new Direction[43];
-		int i = 0;
-		while (i <= 21) {
-			list[i] = Direction.Left;
-			i++;
-			list[i] = Direction.Left;
-			i++;
-			list[i] = Direction.Right;
-			i++;
-			list[i] = Direction.Right;
-			i++;
-			list[i] = Direction.Left;
-			i++;
-			list[i] = Direction.Right;
-			i++;
-			list[i] = Direction.Right;
-			i++;
-		}
-		list[i] = Direction.Left;
-		return list;
-	}	
+	
+	@Override
+	public Direction getNext() {
+		state = (state + 1) %strategy.size();
+		return strategy.get(state);
+	}
 }

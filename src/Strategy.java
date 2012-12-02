@@ -5,21 +5,8 @@
  * @since December 2012
  *
  */
-public abstract class Strategy {
-	protected Direction[] strategyList;
-	protected int maxH = 0;
-	protected int maxW = 0;
+public interface Strategy {
+
+	public Direction getNext();
 	
-	public Strategy(Map m) {
-		this.strategyList = makeStrategy();
-		this.maxH = m.getH();
-		this.maxW = m.getW();
-		Test.addToLog("Strategy added!");
-	}
-	
-	protected abstract Direction[] makeStrategy();
-	
-	public Direction getDirectionFromStrategy(int round) {
-		return this.strategyList[round % strategyList.length];
-	}
 }
