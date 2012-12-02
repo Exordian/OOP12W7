@@ -17,8 +17,8 @@ public class StrategyRandom extends Strategy {
 		Direction[] list = new Direction[50];
 		Random randomGenerator = new Random();
 		int i = 0;
-		while (i <= 50) {
-			list[i] = Direction.values()[randomGenerator.nextInt(4)];
+		while (i < 50) {
+			list[i++] = Direction.values()[randomGenerator.nextInt(4)];
 		}
 		return list;
 	}	

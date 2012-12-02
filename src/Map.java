@@ -15,7 +15,10 @@ public class Map {
 	public Map (int h, int w) {
 		this.h = h;
 		this.w = w;
-		map = new Field[h][w]; // 10 is the max number of cars on one field
+		map = new Field[h][w];
+		for(int i = 0; i < h; i++)
+			for(int j = 0; j < w; j++)
+				map[i][j] = new Field(); // 10 is the max number of cars on one field
 		cars = new ArrayList<Car>();
 		Test.addToLog("Map created(width: " + this.h + ", height: " + this.w + ")");
 	}
@@ -40,16 +43,22 @@ public class Map {
 		return this.map;
 	}
 
+	void startGame() {
+		for(Thread t : cars) {
+			t.start();
+		}
+	}
+	
 	void registerCar(Car c) {
 		synchronized (cars) {
 			cars.add(c);
 		}
 		Random randomGenerator = new Random();
-		int y = randomGenerator.nextInt(this.h + 1);
-		int x = randomGenerator.nextInt(this.w + 1);
+		int y = randomGenerator.nextInt(this.h);
+		int x = randomGenerator.nextInt(this.w);
 		c.setX(x);
 		c.setY(y);
-		c.setOrientation(Orientation.values()[randomGenerator.nextInt(3)]);
+		c.setOrientation(Orientation.values()[randomGenerator.nextInt(Orientation.values().length)]);
 		map[y][x].putCar(c);
 		Test.addToLog("New Car: " + c.getCarName() + ", registered at x = " + x + ", y = " + y + "!");
 	}

@@ -23,6 +23,7 @@ public abstract class Car extends Thread {
 		this.strategy = strategy;
 		this.name = name;
 		gameStopped = false;
+		score = 0;
 	}
 	
 	public String getCarName() {
@@ -62,7 +63,7 @@ public abstract class Car extends Thread {
 		synchronized(o) { return o; }
 	}
 
-	public void changeOrientation() { //TODO nur nötig wenn randbehandlung != exception
+	public void changeOrientation() { //TODO nur nï¿½tig wenn randbehandlung != exception
 		synchronized(o) { 
 			if (this.o == Orientation.NORTH) {
 				this.o = Orientation.SOUTH;
@@ -138,6 +139,12 @@ public abstract class Car extends Thread {
 				tempY += 1;
 			}
 		}
+		
+		// TODO REMOVE THIS HACK
+		tempX %= m.w;
+		tempY %= m.h;
+		if(tempX < 0)tempX = 0;
+		if(tempY < 0)tempY = 0;
 
 		if (tempX >= m.getW() || tempX <= 0 || tempY >= m.getH() || tempY <= 0) {
 			this.changeOrientation();
@@ -146,7 +153,7 @@ public abstract class Car extends Thread {
 		field[tempY][tempX].putCar(this);
 		Test.addToLog("Car " + this.getCarName() + " moved from x = " + this.x + ", y = " + this.y + " to x = " + tempX + ", y = " + tempY);		
 		this.setX(tempX);
-		this.setY(tempY);		
+		this.setY(tempY);
 	}
 
 	public void update(int round) {
@@ -171,7 +178,6 @@ public abstract class Car extends Thread {
 
 			if(score >= 10 || round >= 150) {
 				m.stopGame();
-				Test.addToLog("Game has ended!");
 			}
 
 			try {
@@ -182,6 +188,6 @@ public abstract class Car extends Thread {
 			}
 			round++;
 		}
-
+		System.out.println("Game has ended! SCORE: "+score +" ROUNDS: " + round);
 	}
 }
