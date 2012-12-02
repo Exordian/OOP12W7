@@ -21,6 +21,7 @@ public abstract class Car extends Thread {
 	public Car(Map m, String name, int speed, Strategy strategy) {
 		this.m = m;
 		this.strategy = strategy;
+		this.speed = speed;
 		this.name = name;
 		gameStopped = false;
 		score = 0;
