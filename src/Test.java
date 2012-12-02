@@ -23,56 +23,71 @@ public class Test {
 		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRandom()));
 		map.registerCar(new FastCar(map, "fastcar", new StrategyPattern()));
 		map.registerCar(new AgileCar(map, "fastcar2", new StrategyPattern()));
+		map.registerCar(new FastCar(map, "fastcar", new StrategyRight()));
+		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRight()));
 		
 		map.registerCar(new FastCar(map, "fastcar", new StrategyRandom()));
 		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRandom()));
 		map.registerCar(new FastCar(map, "fastcar", new StrategyPattern()));
 		map.registerCar(new AgileCar(map, "fastcar2", new StrategyPattern()));
+		map.registerCar(new FastCar(map, "fastcar", new StrategyRight()));
+		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRight()));
 		
 		map.registerCar(new FastCar(map, "fastcar", new StrategyRandom()));
 		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRandom()));
 		map.registerCar(new FastCar(map, "fastcar", new StrategyPattern()));
 		map.registerCar(new AgileCar(map, "fastcar2", new StrategyPattern()));
+		map.registerCar(new FastCar(map, "fastcar", new StrategyRight()));
+		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRight()));
 		
 		map.registerCar(new FastCar(map, "fastcar", new StrategyRandom()));
 		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRandom()));
 		map.registerCar(new FastCar(map, "fastcar", new StrategyPattern()));
 		map.registerCar(new AgileCar(map, "fastcar2", new StrategyPattern()));
+		map.registerCar(new FastCar(map, "fastcar", new StrategyRight()));
+		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRight()));
 		
 		map.registerCar(new FastCar(map, "fastcar", new StrategyRandom()));
 		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRandom()));
 		map.registerCar(new FastCar(map, "fastcar", new StrategyPattern()));
 		map.registerCar(new AgileCar(map, "fastcar2", new StrategyPattern()));
+		map.registerCar(new FastCar(map, "fastcar", new StrategyRight()));
+		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRight()));
 		
 		map.registerCar(new FastCar(map, "fastcar", new StrategyRandom()));
 		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRandom()));
 		map.registerCar(new FastCar(map, "fastcar", new StrategyPattern()));
 		map.registerCar(new AgileCar(map, "fastcar2", new StrategyPattern()));
+		map.registerCar(new FastCar(map, "fastcar", new StrategyRight()));
+		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRight()));
 		
 		map.registerCar(new FastCar(map, "fastcar", new StrategyRandom()));
 		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRandom()));
 		map.registerCar(new FastCar(map, "fastcar", new StrategyPattern()));
 		map.registerCar(new AgileCar(map, "fastcar2", new StrategyPattern()));
+		map.registerCar(new FastCar(map, "fastcar", new StrategyRight()));
+		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRight()));
 		
 		map.registerCar(new FastCar(map, "fastcar", new StrategyRandom()));
 		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRandom()));
 		map.registerCar(new FastCar(map, "fastcar", new StrategyPattern()));
 		map.registerCar(new AgileCar(map, "fastcar2", new StrategyPattern()));
+		map.registerCar(new FastCar(map, "fastcar", new StrategyRight()));
+		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRight()));
 		
 		map.registerCar(new FastCar(map, "fastcar", new StrategyRandom()));
 		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRandom()));
 		map.registerCar(new FastCar(map, "fastcar", new StrategyPattern()));
 		map.registerCar(new AgileCar(map, "fastcar2", new StrategyPattern()));
+		map.registerCar(new FastCar(map, "fastcar", new StrategyRight()));
+		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRight()));
 		
 		map.registerCar(new FastCar(map, "fastcar", new StrategyRandom()));
 		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRandom()));
 		map.registerCar(new FastCar(map, "fastcar", new StrategyPattern()));
 		map.registerCar(new AgileCar(map, "fastcar2", new StrategyPattern()));
-		
-		map.registerCar(new FastCar(map, "fastcar", new StrategyRandom()));
-		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRandom()));
-		map.registerCar(new FastCar(map, "fastcar", new StrategyPattern()));
-		map.registerCar(new AgileCar(map, "fastcar2", new StrategyPattern()));
+		map.registerCar(new FastCar(map, "fastcar", new StrategyRight()));
+		map.registerCar(new AgileCar(map, "fastcar2", new StrategyRight()));
 		
 
 		map.startGame();
