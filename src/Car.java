@@ -151,10 +151,10 @@ public abstract class Car extends Thread {
 
 	public void update(int round) {
 		if (this instanceof FastCar) {
-			if (strategy.getDirectionFromStrategy(round) == Direction.RightForward) {
-				d = Direction.Right;
-			} else if (strategy.getDirectionFromStrategy(round) == Direction.LeftForward) {
-				d = Direction.Left;
+			if (strategy.getDirectionFromStrategy(round) == Direction.Right) {
+				d = Direction.RightForward;
+			} else if (strategy.getDirectionFromStrategy(round) == Direction.Left) {
+				d = Direction.LeftForward;
 			}
 		} else if (this instanceof AgileCar) {
 			d = strategy.getDirectionFromStrategy(round);
