@@ -13,12 +13,13 @@ public class Test {
 		Strategy sp = new StrategyPattern(map);
 		Strategy sr = new StrategyRandom(map);
 
-		Car fc = new FastCar(map, "fastcar1", sp);
-		Car ac = new AgileCar(map, "agilecar1", sr);
+		Car fastcar1 = new FastCar(map, "fastcar1", sp);
+		Car agilecar1 = new AgileCar(map, "agilecar1", sr);
 
-		map.registerCar(fc);
-		map.registerCar(ac);
+		map.registerCar(fastcar1);
+		map.registerCar(agilecar1);
 
+		map.stopGame();
 		System.out.println(log);
 	}
 
