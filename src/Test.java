@@ -6,10 +6,6 @@
  *
  */
 public class Test {
-
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		System.out.println(drawField(20, 10,'0')); //draws a field with x=20, y=10 & char 0 as filling
 
