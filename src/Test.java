@@ -31,7 +31,7 @@ public class Test {
 			medMap.registerCar(new FastCar("Fast Car Right " + i, new StrategyRight()));
 			medMap.registerCar(new AgileCar("Agile Car Left " + i, new StrategyLeft()));
 		}
-		for(int i = 7; i < 10; i++) {
+		for(int i = 7; i < 1000; i++) {
 			largeMap.registerCar(new FastCar("Fast Car Random " + i, new StrategyRandom()));
 			largeMap.registerCar(new AgileCar("Agile Car Random " + i, new StrategyRandom()));
 			
@@ -39,7 +39,7 @@ public class Test {
 			largeMap.registerCar(new AgileCar("Agile Car Pattern " + i, new StrategyPattern()));
 			
 			largeMap.registerCar(new FastCar("Fast Car Right " + i, new StrategyRight()));
-			medMap.registerCar(new AgileCar("Agile Car Left " + i, new StrategyLeft()));
+			largeMap.registerCar(new AgileCar("Agile Car Left " + i, new StrategyLeft()));
 		}
 		
 		// blocking

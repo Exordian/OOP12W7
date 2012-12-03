@@ -153,7 +153,7 @@ public abstract class Car extends Thread {
 			}
 			break;
 		default:
-			//troll hard
+			throw new RuntimeException("missing direction ! should never happen");
 		}
 
 		try {
@@ -185,9 +185,9 @@ public abstract class Car extends Thread {
 			}
 		}
 		if (score >= maxScore) {
-			System.out.println(this.getCarName() + " has scored " + score + " points with " + moves + " moves. <--------");
+			System.out.println(String.format("%1$25s | %2$4d | %3$3d ", this.getCarName().toUpperCase(), score, moves)); // Winner in Caps
 		} else {
-			System.out.println(this.getCarName() + " has scored " + score + " points with " + moves + " moves.");
+			System.out.println(String.format("%1$25s | %2$4d | %3$3d ", this.getCarName(), score, moves));
 		}
 	}
 }
