@@ -8,9 +8,9 @@ import java.util.Random;
  *
  */
 public class Map {
-	Field[][] map;
-	int h, w;
-	ArrayList<Car> cars;
+	private Field[][] map;
+	private int h, w;
+	private ArrayList<Car> cars;
 
 	public Map (int h, int w) {
 		this.h = h;
@@ -20,34 +20,28 @@ public class Map {
 			for(int j = 0; j < w; j++)
 				map[i][j] = new Field(); // 10 is the max number of cars on one field
 		cars = new ArrayList<Car>();
-		Test.addToLog("Map created(width: " + this.h + ", height: " + this.w + ")");
 	}
 	
-	int getH() {
+	public int getH() {
 		return this.h;
 	}
 	
-	int getW() {
+	public int getW() {
 		return this.w;
 	}
 
-	void stopGame() {
+	public void stopGame() {
 		synchronized (cars) {
-/*
-			for(Car c : cars)
-				c.stopGame();
-		*/
 			for(Thread t : cars)
 				t.interrupt();
 		}
-		Test.addToLog("Game stopped!");
 	}
 	
-	Field[][] getMap() {
+	public Field[][] getMap() {
 		return this.map;
 	}
 
-	void startGame() {
+	public void startGame() {
 		for(Thread t : cars) {
 			t.start();
 		}
@@ -59,7 +53,17 @@ public class Map {
 			}
 	}
 	
-	void registerCar(Car c) {
+	public void moveCar(Car c, int formerY, int formerX, int yNow, int xNow) throws CarWantsToEscapeException {
+		if(xNow <= 0 || xNow >= this.w || yNow >= this.h || yNow <= 0) {
+			throw new CarWantsToEscapeException(c.getCarName() + " wants to escape the map!");
+		}
+		map[formerY][formerX].moveAway(c);
+		map[yNow][xNow].putCar(c);
+		c.setX(xNow);
+		c.setY(yNow);
+	}
+	
+	public void registerCar(Car c) {
 		synchronized (cars) {
 			cars.add(c);
 		}
@@ -69,7 +73,7 @@ public class Map {
 		c.setX(x);
 		c.setY(y);
 		c.setOrientation(Orientation.values()[randomGenerator.nextInt(Orientation.values().length)]);
+		c.attachMap(this);
 		map[y][x].putCar(c);
-		Test.addToLog("New Car: " + c.getCarName() + ", registered at x = " + x + ", y = " + y + "!");
 	}
 }

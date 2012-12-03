@@ -9,8 +9,8 @@ import java.util.ArrayList;
  */
 public class StrategyPattern implements Strategy {
 
-	ArrayList<Direction> strategy;
-	int state;
+	private ArrayList<Direction> strategy;
+	private int state;
 	
 	public StrategyPattern() {
 		strategy = new ArrayList<Direction>();

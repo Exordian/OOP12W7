@@ -5,7 +5,8 @@
  * @since December 2012
  *
  */
-public interface Strategy {
-	public Direction getNext();
-	
+public class CarWantsToEscapeException extends Exception {
+	CarWantsToEscapeException(String s) {
+		super(s);
+	}
 }

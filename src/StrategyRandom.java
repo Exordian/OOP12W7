@@ -8,7 +8,6 @@ import java.util.Random;
  *
  */
 public class StrategyRandom implements Strategy {
-
 	@Override
 	public Direction getNext() {
 		return Direction.values()[new Random().nextInt(Direction.values().length)];

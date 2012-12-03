@@ -6,27 +6,26 @@
  *
  */
 public abstract class Car extends Thread {
-	private Integer score;
+	private String name;
 	private int speed; // sleep in ms
-	protected Map m;
-	protected Strategy strategy;
+	private Integer score;
+	private Map m;
 	private boolean gameStopped;
 	private Orientation o;
 	private Direction d;
-	private String name;
-
+	
+	protected Strategy strategy;
 	protected int x = 0;
 	protected int y = 0;
 
-	public Car(Map m, String name, int speed, Strategy strategy) {
-		this.m = m;
+	public Car(String name, int speed, Strategy strategy) {
 		this.strategy = strategy;
 		this.speed = speed;
 		this.name = name;
 		gameStopped = false;
 		score = 0;
 	}
-	
+
 	public String getCarName() {
 		return this.name;
 	}
@@ -37,6 +36,10 @@ public abstract class Car extends Thread {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+
+	public void attachMap(Map m) {
+		this.m = m;
 	}
 
 	// actually due to the state that the car can only be in one field and this list is syncronized, score shouldnt be a problem
@@ -51,6 +54,10 @@ public abstract class Car extends Thread {
 	public void stopGame() {
 		gameStopped = true;
 	}
+	
+	public void setDirection(Direction dir) {
+		this.d = dir;
+	}
 
 	public Direction getDirection() {
 		return d;
@@ -64,26 +71,25 @@ public abstract class Car extends Thread {
 		synchronized(o) { return o; }
 	}
 
-	public void changeOrientation() { //TODO nur n�tig wenn randbehandlung != exception
-		synchronized(o) { 
-			if (this.o == Orientation.NORTH) {
-				this.o = Orientation.SOUTH;
-			} else if (this.o == Orientation.SOUTH) {
-				this.o = Orientation.NORTH;
-			} else if (this.o == Orientation.WEST) {
-				this.o = Orientation.EAST;
-			} else if (this.o == Orientation.EAST) {
-				this.o = Orientation.WEST;
-			}
+	private void changeOrientation() {
+		if (this.o == Orientation.NORTH) {
+			this.o = Orientation.SOUTH;
+		} else if (this.o == Orientation.SOUTH) {
+			this.o = Orientation.NORTH;
+		} else if (this.o == Orientation.WEST) {
+			this.o = Orientation.EAST;
+		} else if (this.o == Orientation.EAST) {
+			this.o = Orientation.WEST;
 		}
 	}
 
-	public void drive() {
-		Field[][] field = m.getMap();
+	private void drive() {
+
 		int tempX = this.x;
 		int tempY = this.y;
 
-		if (this.getOrientation() == Orientation.EAST) {
+		switch (this.getOrientation()) {
+		case EAST:
 			if (this.getDirection() == Direction.Forward) {
 				tempX += 1;
 			} else if (this.getDirection() == Direction.Left) {
@@ -96,8 +102,9 @@ public abstract class Car extends Thread {
 			} else if (this.getDirection() == Direction.RightForward) {
 				tempY += 1;
 				tempX += 1;
-			}			
-		} else if (this.getOrientation() == Orientation.NORTH) {
+			}	
+			break;
+		case NORTH:
 			if (this.getDirection() == Direction.Forward) {
 				tempY -= 1;
 			} else if (this.getDirection() == Direction.Left) {
@@ -111,7 +118,8 @@ public abstract class Car extends Thread {
 				tempX += 1;
 				tempY += 1;
 			}
-		} else if (this.getOrientation() == Orientation.WEST) {
+			break;
+		case WEST:
 			if (this.getDirection() == Direction.Forward) {
 				tempX -= 1;
 			} else if (this.getDirection() == Direction.Left) {
@@ -125,7 +133,8 @@ public abstract class Car extends Thread {
 				tempX -= 1;
 				tempY -= 1;
 			}
-		} else if (this.getOrientation() == Orientation.SOUTH) {
+			break;
+		case SOUTH:
 			if (this.getDirection() == Direction.Forward) {
 				tempY += 1;
 			} else if (this.getDirection() == Direction.Left) {
@@ -139,45 +148,29 @@ public abstract class Car extends Thread {
 				tempX -= 1;
 				tempY += 1;
 			}
+			break;
+		default:
+			//troll hard
 		}
 		
-		// TODO REMOVE THIS HACK
-		tempX %= m.w;
-		tempY %= m.h;
-		if(tempX < 0)tempX = 0;
-		if(tempY < 0)tempY = 0;
-
-		if (tempX >= m.getW() || tempX <= 0 || tempY >= m.getH() || tempY <= 0) {
-			this.changeOrientation();
-		}
-		field[this.y][this.x].moveAway(this);
-		field[tempY][tempX].putCar(this);
-		Test.addToLog("Car " + this.getCarName() + " moved from x = " + this.x + ", y = " + this.y + " to x = " + tempX + ", y = " + tempY);		
-		this.setX(tempX);
-		this.setY(tempY);
-	}
-
-	public void update(int round) {
-		if (this instanceof FastCar) {
-			if (strategy.getNext() == Direction.Right) {
-				d = Direction.RightForward;
-			} else if (strategy.getNext() == Direction.Left) {
-				d = Direction.LeftForward;
-			}
-		} else if (this instanceof AgileCar) {
-			d = strategy.getNext();
+		try {
+			m.moveCar(this, this.y, this.x, tempY, tempX);
+		} catch (CarWantsToEscapeException c) {
+			changeOrientation();
 		}
 	}
+
+	protected abstract void update();
 
 	@Override
 	public void run() {
 		int round = 0;
 		while(!gameStopped) {
-			Test.addToLog("Round " + round + ":");
-			update(round);
+			update();
 			drive();
 
 			if(score >= 10 || round >= 150) {
+				System.out.println("Game has ended!\n" + this.getCarName() + " has won!\n");
 				m.stopGame();
 			}
 
@@ -188,6 +181,6 @@ public abstract class Car extends Thread {
 			}
 			round++;
 		}
-		System.out.println("Game has ended! SCORE: "+score +" ROUNDS: " + round);
+		System.out.println(this.getCarName() + "has scored " + score + " points with " + round + " rounds.");
 	}
 }

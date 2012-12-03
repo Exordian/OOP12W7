@@ -7,7 +7,20 @@
  */
 public class FastCar extends Car {
 
-	public FastCar(Map m, String name, Strategy strategy) {
-		super(m, name, 10, strategy);
+	public FastCar(String name, Strategy strategy) {
+		super(name, 10, strategy);
+	}
+
+	protected void update(){
+		switch (strategy.getNext()) {
+		case Right:
+			setDirection(Direction.RightForward);
+			break;
+		case Left:
+			setDirection(Direction.LeftForward);
+			break;
+		default:
+			setDirection(strategy.getNext());	
+		}
 	}
 }

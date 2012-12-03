@@ -7,7 +7,11 @@
  */
 public class AgileCar extends Car {
 
-	public AgileCar(Map m, String name, Strategy strategy) {
-		super(m, name, 50, strategy);
+	public AgileCar(String name, Strategy strategy) {
+		super(name, 50, strategy);
 	}
+	
+	protected void update(){
+		setDirection(strategy.getNext());
+	}	
 }
