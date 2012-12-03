@@ -44,10 +44,13 @@ public class Test {
 		
 		// blocking
 		System.out.println("______________________________________________________________\nStarting Test with small Map 10x10:\n______________________________________________________________\n");
+		System.out.println(String.format("%1$25s | %2$5s | %3$5s ", "Car Name", "Score", "Moves")); // Winner in Caps
 		smallMap.startGame();
 		System.out.println("Game Ended.\n\n______________________________________________________________\nStarting Test with medium Map 50x50:\n______________________________________________________________\n");
+		System.out.println(String.format("%1$25s | %2$5s | %3$5s ", "Car Name", "Score", "Moves")); // Winner in Caps
 		medMap.startGame();
 		System.out.println("Game Ended.\n\n______________________________________________________________\nStarting Test with large Map 150x150:\n______________________________________________________________\n");
+		System.out.println(String.format("%1$25s | %2$5s | %3$5s ", "Car Name", "Score", "Moves")); // Winner in Caps
 		largeMap.startGame();
 
 		// Test Map Reuse
@@ -62,6 +65,7 @@ public class Test {
 			medMap.registerCar(new AgileCar("Agile Car Left " + i, new StrategyLeft()));
 		}
 		System.out.println("Game Ended.\n\n______________________________________________________________\nStarting Test with reused medium Map 50x50:\n______________________________________________________________\n");
+		System.out.println(String.format("%1$25s | %2$5s | %3$5s ", "Car Name", "Score", "Moves")); // Winner in Caps
 		medMap.startGame();
 		System.out.println("Game Ended.");
 	}

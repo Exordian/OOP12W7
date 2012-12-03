@@ -185,9 +185,9 @@ public abstract class Car extends Thread {
 			}
 		}
 		if (score >= maxScore) {
-			System.out.println(String.format("%1$25s | %2$4d | %3$3d ", this.getCarName().toUpperCase(), score, moves)); // Winner in Caps
+			System.out.println(String.format("%1$25s | %2$5d | %3$5d ", this.getCarName().toUpperCase(), score, moves)); // Winner in Caps
 		} else {
-			System.out.println(String.format("%1$25s | %2$4d | %3$3d ", this.getCarName(), score, moves));
+			System.out.println(String.format("%1$25s | %2$5d | %3$5d ", this.getCarName(), score, moves));
 		}
 	}
 }
