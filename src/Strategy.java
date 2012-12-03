@@ -6,5 +6,6 @@
  *
  */
 public interface Strategy {
+	//strategy by which car moves around
 	public Direction getNext();
 }

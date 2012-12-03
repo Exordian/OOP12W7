@@ -10,6 +10,8 @@ import java.util.Random;
 public class StrategyRandom implements Strategy {
 	@Override
 	public Direction getNext() {
+		//generate random directions for car to move around
 		return Direction.values()[new Random().nextInt(Direction.values().length)];
+		//returns random direction
 	}
 }

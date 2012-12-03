@@ -13,6 +13,7 @@ public class StrategyPattern implements Strategy {
 	private int state;
 	
 	public StrategyPattern() {
+		//specific pattern for car to move around on map 
 		strategy = new ArrayList<Direction>();
 		strategy.add(Direction.Left);
 		strategy.add(Direction.Left);
@@ -26,7 +27,8 @@ public class StrategyPattern implements Strategy {
 	
 	@Override
 	public Direction getNext() {
-		state = (state + 1) % strategy.size();
+		state = (state + 1) % strategy.size(); //if end reached => start again at beginning of strategy-list
 		return strategy.get(state);
+		//returns next direction of strategy-list
 	}
 }

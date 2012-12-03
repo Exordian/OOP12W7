@@ -6,7 +6,9 @@
  *
  */
 public class CarWantsToEscapeException extends Exception {
+	//is thrown if car wants to exceed border of lane
 	CarWantsToEscapeException(String s) {
+		//s != null;
 		super(s);
 	}
 }

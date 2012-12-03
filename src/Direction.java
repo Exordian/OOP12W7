@@ -6,6 +6,9 @@
  *
  */
 public enum Direction {
+	//possible directions to which car can drive:
+	//agile car: all directions allowed
+	//fast car:  all EXCEPT for "LEFT" and "RIGHT"
 	Left,
 	LeftForward,
 	Forward,

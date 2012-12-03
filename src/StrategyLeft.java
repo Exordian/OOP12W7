@@ -6,8 +6,10 @@
  *
  */
 public class StrategyLeft implements Strategy {
+	//always drive LEFT => cycle
+	
 	@Override
 	public Direction getNext() {
-		return Direction.Left;
+		return Direction.Left; //LEFT LEFT LEFT...
 	}
 }

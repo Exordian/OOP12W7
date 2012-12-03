@@ -6,6 +6,7 @@
  *
  */
 public enum Orientation {
+	//orientation of car
 	NORTH,
 	EAST,
 	SOUTH,
