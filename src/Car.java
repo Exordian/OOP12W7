@@ -168,7 +168,7 @@ public abstract class Car extends Thread {
 	@Override
 	public void run() {
 		int moves = 0;
-		while(!gameStopped) {
+		while(!gameStopped) { // or isInterrupted()
 			update();
 			drive();
 

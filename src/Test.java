@@ -51,7 +51,7 @@ public class Test {
 		largeMap.startGame();
 
 		// Test Map Reuse
-		for(int i = 0; i <= 10; i++) {
+		for(int i = 10; i <= 12; i++) {
 			medMap.registerCar(new FastCar("Fast Car Random " + i, new StrategyRandom()));
 			medMap.registerCar(new AgileCar("Agile Car Random " + i, new StrategyRandom()));
 			
