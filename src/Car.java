@@ -184,7 +184,7 @@ public abstract class Car extends Thread {
 				this.stopGame(); // or just break / Thread.exit()
 			}
 		}
-		if (score == maxScore) {
+		if (score >= maxScore) {
 			System.out.println(this.getCarName() + " has scored " + score + " points with " + moves + " moves. <--------");
 		} else {
 			System.out.println(this.getCarName() + " has scored " + score + " points with " + moves + " moves.");
