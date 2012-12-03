@@ -68,7 +68,7 @@ public abstract class Car extends Thread {
 	}
 
 	public Orientation getOrientation() {
-		synchronized(o) { return o; }
+		return o;
 	}
 
 	private void changeOrientation() {
@@ -89,68 +89,68 @@ public abstract class Car extends Thread {
 		int tempY = this.y;
 
 		switch (this.getOrientation()) {
-		case EAST:
-			if (this.getDirection() == Direction.Forward) {
-				tempX += 1;
-			} else if (this.getDirection() == Direction.Left) {
-				tempY -= 1;
-			} else if (this.getDirection() == Direction.Right) {
-				tempY += 1;
-			} else if (this.getDirection() == Direction.LeftForward) {
-				tempY -= 1;
-				tempX += 1;
-			} else if (this.getDirection() == Direction.RightForward) {
-				tempY += 1;
-				tempX += 1;
-			}	
-			break;
-		case NORTH:
-			if (this.getDirection() == Direction.Forward) {
-				tempY -= 1;
-			} else if (this.getDirection() == Direction.Left) {
-				tempX -= 1;
-			} else if (this.getDirection() == Direction.Right) {
-				tempX += 1;
-			} else if (this.getDirection() == Direction.LeftForward) {
-				tempX -= 1;
-				tempY += 1;
-			} else if (this.getDirection() == Direction.RightForward) {
-				tempX += 1;
-				tempY += 1;
-			}
-			break;
-		case WEST:
-			if (this.getDirection() == Direction.Forward) {
-				tempX -= 1;
-			} else if (this.getDirection() == Direction.Left) {
-				tempY += 1;
-			} else if (this.getDirection() == Direction.Right) {
-				tempY -= 1;
-			} else if (this.getDirection() == Direction.LeftForward) {
-				tempX -= 1;
-				tempY += 1;
-			} else if (this.getDirection() == Direction.RightForward) {
-				tempX -= 1;
-				tempY -= 1;
-			}
-			break;
-		case SOUTH:
-			if (this.getDirection() == Direction.Forward) {
-				tempY += 1;
-			} else if (this.getDirection() == Direction.Left) {
-				tempX += 1;
-			} else if (this.getDirection() == Direction.Right) {
-				tempX -= 1;
-			} else if (this.getDirection() == Direction.LeftForward) {
-				tempX += 1;
-				tempY += 1;
-			} else if (this.getDirection() == Direction.RightForward) {
-				tempX -= 1;
-				tempY += 1;
-			}
-			break;
-		default:
-			//troll hard
+			case EAST:
+				if (this.getDirection() == Direction.Forward) {
+					tempX += 1;
+				} else if (this.getDirection() == Direction.Left) {
+					tempY -= 1;
+				} else if (this.getDirection() == Direction.Right) {
+					tempY += 1;
+				} else if (this.getDirection() == Direction.LeftForward) {
+					tempY -= 1;
+					tempX += 1;
+				} else if (this.getDirection() == Direction.RightForward) {
+					tempY += 1;
+					tempX += 1;
+				}	
+				break;
+			case NORTH:
+				if (this.getDirection() == Direction.Forward) {
+					tempY -= 1;
+				} else if (this.getDirection() == Direction.Left) {
+					tempX -= 1;
+				} else if (this.getDirection() == Direction.Right) {
+					tempX += 1;
+				} else if (this.getDirection() == Direction.LeftForward) {
+					tempX -= 1;
+					tempY += 1;
+				} else if (this.getDirection() == Direction.RightForward) {
+					tempX += 1;
+					tempY += 1;
+				}
+				break;
+			case WEST:
+				if (this.getDirection() == Direction.Forward) {
+					tempX -= 1;
+				} else if (this.getDirection() == Direction.Left) {
+					tempY += 1;
+				} else if (this.getDirection() == Direction.Right) {
+					tempY -= 1;
+				} else if (this.getDirection() == Direction.LeftForward) {
+					tempX -= 1;
+					tempY += 1;
+				} else if (this.getDirection() == Direction.RightForward) {
+					tempX -= 1;
+					tempY -= 1;
+				}
+				break;
+			case SOUTH:
+				if (this.getDirection() == Direction.Forward) {
+					tempY += 1;
+				} else if (this.getDirection() == Direction.Left) {
+					tempX += 1;
+				} else if (this.getDirection() == Direction.Right) {
+					tempX -= 1;
+				} else if (this.getDirection() == Direction.LeftForward) {
+					tempX += 1;
+					tempY += 1;
+				} else if (this.getDirection() == Direction.RightForward) {
+					tempX -= 1;
+					tempY += 1;
+				}
+				break;
+			default:
+				//troll hard
 		}
 		
 		try {
@@ -174,13 +174,13 @@ public abstract class Car extends Thread {
 				m.stopGame();
 			}
 
+			round++;
 			try {
 				Thread.sleep(speed);
 			} catch (InterruptedException e) {
-				this.stopGame(); // or just break
+				this.stopGame(); // or just break / Thread.exit()
 			}
-			round++;
 		}
-		System.out.println(this.getCarName() + "has scored " + score + " points with " + round + " rounds.");
+		System.out.println(this.getCarName() + " has scored " + score + " points with " + round + " rounds.");
 	}
 }
