@@ -8,7 +8,7 @@
 public abstract class Car extends Thread {
 	private static final int maxScore = 10;
 	private static final int maxMoves = 150;
-	
+
 	private String name;
 	private int speed; // sleep in ms
 	private Integer score;
@@ -16,7 +16,7 @@ public abstract class Car extends Thread {
 	private boolean gameStopped;
 	private Orientation o;
 	private Direction d;
-	
+
 	protected Strategy strategy;
 	protected int x = 0;
 	protected int y = 0;
@@ -57,7 +57,7 @@ public abstract class Car extends Thread {
 	public void stopGame() {
 		gameStopped = true;
 	}
-	
+
 	public void setDirection(Direction dir) {
 		this.d = dir;
 	}
@@ -92,70 +92,70 @@ public abstract class Car extends Thread {
 		int tempY = this.y;
 
 		switch (this.getOrientation()) {
-			case EAST:
-				if (this.getDirection() == Direction.Forward) {
-					tempX += 1;
-				} else if (this.getDirection() == Direction.Left) {
-					tempY -= 1;
-				} else if (this.getDirection() == Direction.Right) {
-					tempY += 1;
-				} else if (this.getDirection() == Direction.LeftForward) {
-					tempY -= 1;
-					tempX += 1;
-				} else if (this.getDirection() == Direction.RightForward) {
-					tempY += 1;
-					tempX += 1;
-				}	
-				break;
-			case NORTH:
-				if (this.getDirection() == Direction.Forward) {
-					tempY -= 1;
-				} else if (this.getDirection() == Direction.Left) {
-					tempX -= 1;
-				} else if (this.getDirection() == Direction.Right) {
-					tempX += 1;
-				} else if (this.getDirection() == Direction.LeftForward) {
-					tempX -= 1;
-					tempY += 1;
-				} else if (this.getDirection() == Direction.RightForward) {
-					tempX += 1;
-					tempY += 1;
-				}
-				break;
-			case WEST:
-				if (this.getDirection() == Direction.Forward) {
-					tempX -= 1;
-				} else if (this.getDirection() == Direction.Left) {
-					tempY += 1;
-				} else if (this.getDirection() == Direction.Right) {
-					tempY -= 1;
-				} else if (this.getDirection() == Direction.LeftForward) {
-					tempX -= 1;
-					tempY += 1;
-				} else if (this.getDirection() == Direction.RightForward) {
-					tempX -= 1;
-					tempY -= 1;
-				}
-				break;
-			case SOUTH:
-				if (this.getDirection() == Direction.Forward) {
-					tempY += 1;
-				} else if (this.getDirection() == Direction.Left) {
-					tempX += 1;
-				} else if (this.getDirection() == Direction.Right) {
-					tempX -= 1;
-				} else if (this.getDirection() == Direction.LeftForward) {
-					tempX += 1;
-					tempY += 1;
-				} else if (this.getDirection() == Direction.RightForward) {
-					tempX -= 1;
-					tempY += 1;
-				}
-				break;
-			default:
-				//troll hard
+		case EAST:
+			if (this.getDirection() == Direction.Forward) {
+				tempX += 1;
+			} else if (this.getDirection() == Direction.Left) {
+				tempY -= 1;
+			} else if (this.getDirection() == Direction.Right) {
+				tempY += 1;
+			} else if (this.getDirection() == Direction.LeftForward) {
+				tempY -= 1;
+				tempX += 1;
+			} else if (this.getDirection() == Direction.RightForward) {
+				tempY += 1;
+				tempX += 1;
+			}	
+			break;
+		case NORTH:
+			if (this.getDirection() == Direction.Forward) {
+				tempY -= 1;
+			} else if (this.getDirection() == Direction.Left) {
+				tempX -= 1;
+			} else if (this.getDirection() == Direction.Right) {
+				tempX += 1;
+			} else if (this.getDirection() == Direction.LeftForward) {
+				tempX -= 1;
+				tempY += 1;
+			} else if (this.getDirection() == Direction.RightForward) {
+				tempX += 1;
+				tempY += 1;
+			}
+			break;
+		case WEST:
+			if (this.getDirection() == Direction.Forward) {
+				tempX -= 1;
+			} else if (this.getDirection() == Direction.Left) {
+				tempY += 1;
+			} else if (this.getDirection() == Direction.Right) {
+				tempY -= 1;
+			} else if (this.getDirection() == Direction.LeftForward) {
+				tempX -= 1;
+				tempY += 1;
+			} else if (this.getDirection() == Direction.RightForward) {
+				tempX -= 1;
+				tempY -= 1;
+			}
+			break;
+		case SOUTH:
+			if (this.getDirection() == Direction.Forward) {
+				tempY += 1;
+			} else if (this.getDirection() == Direction.Left) {
+				tempX += 1;
+			} else if (this.getDirection() == Direction.Right) {
+				tempX -= 1;
+			} else if (this.getDirection() == Direction.LeftForward) {
+				tempX += 1;
+				tempY += 1;
+			} else if (this.getDirection() == Direction.RightForward) {
+				tempX -= 1;
+				tempY += 1;
+			}
+			break;
+		default:
+			//troll hard
 		}
-		
+
 		try {
 			m.moveCar(this, this.y, this.x, tempY, tempX);
 		} catch (CarWantsToEscapeException c) {
@@ -173,7 +173,7 @@ public abstract class Car extends Thread {
 			drive();
 
 			if(score >= maxScore || moves >= maxMoves) {
-				System.out.println("Game has ended!\n" + this.getCarName() + " has won! <------\n");
+				//System.out.println("Game has ended!\n" + this.getCarName() + " has won! <------\n");
 				m.stopGame();
 			}
 
@@ -184,6 +184,10 @@ public abstract class Car extends Thread {
 				this.stopGame(); // or just break / Thread.exit()
 			}
 		}
-		System.out.println(this.getCarName() + " has scored " + score + " points with " + moves + " moves.");
+		if (score == maxScore) {
+			System.out.println(this.getCarName() + " has scored " + score + " points with " + moves + " moves. <--------");
+		} else {
+			System.out.println(this.getCarName() + " has scored " + score + " points with " + moves + " moves.");
+		}
 	}
 }
