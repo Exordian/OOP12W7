@@ -39,7 +39,6 @@ public class Map {
 	
 	public void startGame() {
 		if(gameInProgress)
-			//game already in progress
 			return;
 		
 		//start game
@@ -88,7 +87,7 @@ public class Map {
 		int x = randomGenerator.nextInt(this.w);
 		c.setX(x);
 		c.setY(y);
-		//set orientation
+		//set random orientation
 		c.setOrientation(Orientation.values()[randomGenerator.nextInt(Orientation.values().length)]);
 		c.attachMap(this);
 		map[y][x].putCar(c); //car now on specific field in map

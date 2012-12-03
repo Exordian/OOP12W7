@@ -23,7 +23,7 @@ public abstract class Car extends Thread {
 
 	public Car(String name, int speed, Strategy strategy) {
 		this.strategy = strategy;
-		this.speed = speed;
+		this.speed = 1000 / speed; // Fields per Second
 		this.name = name;
 		gameStopped = false;
 		score = 0;
@@ -49,19 +49,20 @@ public abstract class Car extends Thread {
 		//map has been attached
 	}
 
-	// actually due to the state that the car can only be in one field and this list is syncronized, score shouldnt be a problem
+	// due to the state that the car can only be in one field and then this list is locked, score shouldn't be a sync problem
 	public void scoreUp() {
-		//car has hit or got hit by another car from front side
+		// called if car has hit or got hit by another car from front side
 		//=> add score up by one point
-		synchronized(score) {score++;}
+		score++;
 	}
 
 	public void scoreDown() {
-		//car has been hit (NOT from front side!) 
+		// called if car has been hit (NOT from front side!) 
 		//=> subtract one point from score
-		synchronized(score) {score--;}
+		score--;
 	}
 
+	// called to stop the car, could be dropped and run method could be interrupted otherwise, but i think this is nicer
 	public void stopGame() {
 		gameStopped = true;
 	}
@@ -86,6 +87,7 @@ public abstract class Car extends Thread {
 		//returns orientation
 	}
 
+	// alias turnAround
 	private void changeOrientation() {
 		//border handling
 		//=> reverse orientation
@@ -102,7 +104,6 @@ public abstract class Car extends Thread {
 	}
 
 	private void drive() {
-
 		int tempX = this.x;
 		int tempY = this.y;
 
@@ -174,29 +175,29 @@ public abstract class Car extends Thread {
 
 		try {
 			m.moveCar(this, this.y, this.x, tempY, tempX); //move car to another field
-		} catch (CarWantsToEscapeException c) { //out of border
+		} catch (CarWantsToEscapeException c) { //out of border, now miss this turn, but get turned around instead
 			changeOrientation(); //reverse orientation
 		}
 		//car has been driven to another field
 	}
 
+	// Set next direction
 	protected abstract void update();
 
 	@Override
 	public void run() {
 		int moves = 0;
-		while(!gameStopped) { // or isInterrupted()
-			update(); //change direction
-			drive();  //drive to changed direction
+		while(!gameStopped) { // or use isInterrupted(), or just true and break while in try/catch
+			update(); //update direction
+			drive();  //drive to direction
 
 			if(score >= maxScore || moves >= maxMoves) {
-				//System.out.println("Game has ended!\n" + this.getCarName() + " has won! <------\n");
 				m.stopGame();
 			}
 
 			moves++;
 			try {
-				Thread.sleep(speed); //agile car slower than fast car
+				Thread.sleep(speed);
 			} catch (InterruptedException e) {
 				this.stopGame(); // or just break / Thread.exit()
 			}

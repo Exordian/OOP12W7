@@ -22,7 +22,8 @@ public class AgileCar extends Car {
 	
 	public AgileCar(String name, Strategy strategy) {
 		//agile car is slower than fast car => agile car "sleeps" longer than fast car
-		super(name, 50, strategy);
+		// 45 Fields per Second
+		super(name, 45, strategy);
 	}
 	
 	protected void update(){
