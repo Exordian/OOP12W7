@@ -26,7 +26,7 @@ public class StrategyPattern implements Strategy {
 	
 	@Override
 	public Direction getNext() {
-		state = (state + 1) %strategy.size();
+		state = (state + 1) % strategy.size();
 		return strategy.get(state);
 	}
 }

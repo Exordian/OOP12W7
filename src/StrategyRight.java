@@ -11,5 +11,4 @@ public class StrategyRight implements Strategy {
 	public Direction getNext() {
 		return Direction.Right; // RIGHT RIGHT RIGHT
 	}
-
 }

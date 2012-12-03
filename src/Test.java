@@ -7,52 +7,61 @@
  */
 public class Test {
 	public static void main(String[] args) {
-		Map grmap = new Map(50,50);
-		Map smallmap = new Map(10,10);
+		Map smallMap = new Map(10,10);
+		Map medMap = new Map(50,50);
+		Map largeMap = new Map(150,150);
 		
-		for(int i = 0; i <= 10; i++) {
-			grmap.registerCar(new FastCar("Fast Car Random "+i, new StrategyRandom()));
-			grmap.registerCar(new AgileCar("Agile Car Random "+i, new StrategyRandom()));
-			
-			grmap.registerCar(new FastCar("Fast Car Pattern "+i, new StrategyPattern()));
-			grmap.registerCar(new AgileCar("Agile Car Pattern "+i, new StrategyPattern()));
-			
-			grmap.registerCar(new FastCar("Fast Car Right "+i, new StrategyRight()));
-			grmap.registerCar(new AgileCar("Agile Car Right "+i, new StrategyRight()));
-		}
-
-
 		for(int i = 0; i < 3; i++) {
-			smallmap.registerCar(new FastCar("Fast Car Random "+i, new StrategyRandom()));
-			smallmap.registerCar(new AgileCar("Agile Car Random "+i, new StrategyRandom()));
+			smallMap.registerCar(new FastCar("Fast Car Random " + i, new StrategyRandom()));
+			smallMap.registerCar(new AgileCar("Agile Car Random " + i, new StrategyRandom()));
 			
-			smallmap.registerCar(new FastCar("Fast Car Pattern "+i, new StrategyPattern()));
-			smallmap.registerCar(new AgileCar("Agile Car Pattern "+i, new StrategyPattern()));
+			smallMap.registerCar(new FastCar("Fast Car Pattern " + i, new StrategyPattern()));
+			smallMap.registerCar(new AgileCar("Agile Car Pattern " + i, new StrategyPattern()));
 			
-			smallmap.registerCar(new FastCar("Fast Car Right "+i, new StrategyRight()));
-			smallmap.registerCar(new AgileCar("Agile Car Right "+i, new StrategyRight()));
+			smallMap.registerCar(new FastCar("Fast Car Right " + i, new StrategyRight()));
+			smallMap.registerCar(new AgileCar("Agile Car Left " + i, new StrategyLeft()));
 		}
-		
+		for(int i = 3; i < 7; i++) {
+			medMap.registerCar(new FastCar("Fast Car Random " + i, new StrategyRandom()));
+			medMap.registerCar(new AgileCar("Agile Car Random " + i, new StrategyRandom()));
+			
+			medMap.registerCar(new FastCar("Fast Car Pattern " + i, new StrategyPattern()));
+			medMap.registerCar(new AgileCar("Agile Car Pattern " + i, new StrategyPattern()));
+			
+			medMap.registerCar(new FastCar("Fast Car Right " + i, new StrategyRight()));
+			medMap.registerCar(new AgileCar("Agile Car Left " + i, new StrategyLeft()));
+		}
+		for(int i = 7; i < 10; i++) {
+			largeMap.registerCar(new FastCar("Fast Car Random " + i, new StrategyRandom()));
+			largeMap.registerCar(new AgileCar("Agile Car Random " + i, new StrategyRandom()));
+			
+			largeMap.registerCar(new FastCar("Fast Car Pattern " + i, new StrategyPattern()));
+			largeMap.registerCar(new AgileCar("Agile Car Pattern " + i, new StrategyPattern()));
+			
+			largeMap.registerCar(new FastCar("Fast Car Right " + i, new StrategyRight()));
+			medMap.registerCar(new AgileCar("Agile Car Left " + i, new StrategyLeft()));
+		}
 		
 		// blocking
-		grmap.startGame();
-		smallmap.startGame();
+		System.out.println("______________________________________________________________\nStarting Test with small Map 10x10:\n______________________________________________________________\n");
+		smallMap.startGame();
+		System.out.println("\n\n______________________________________________________________\nStarting Test with medium Map 50x50:\n______________________________________________________________\n");
+		medMap.startGame();
+		System.out.println("\n\n______________________________________________________________\nStarting Test with large Map 150x150:\n______________________________________________________________\n");
+		largeMap.startGame();
 
 		// Test Map Reuse
 		for(int i = 0; i <= 10; i++) {
-			grmap.registerCar(new FastCar("Fast Car Random "+i, new StrategyRandom()));
-			grmap.registerCar(new AgileCar("Agile Car Random "+i, new StrategyRandom()));
+			medMap.registerCar(new FastCar("Fast Car Random " + i, new StrategyRandom()));
+			medMap.registerCar(new AgileCar("Agile Car Random " + i, new StrategyRandom()));
 			
-			grmap.registerCar(new FastCar("Fast Car Pattern "+i, new StrategyPattern()));
-			grmap.registerCar(new AgileCar("Agile Car Pattern "+i, new StrategyPattern()));
+			medMap.registerCar(new FastCar("Fast Car Pattern " + i, new StrategyPattern()));
+			medMap.registerCar(new AgileCar("Agile Car Pattern " + i, new StrategyPattern()));
 			
-			grmap.registerCar(new FastCar("Fast Car Right "+i, new StrategyRight()));
-			grmap.registerCar(new AgileCar("Agile Car Right "+i, new StrategyRight()));
+			medMap.registerCar(new FastCar("Fast Car Right " + i, new StrategyRight()));
+			medMap.registerCar(new AgileCar("Agile Car Left " + i, new StrategyLeft()));
 		}
-		
-		grmap.startGame();
-
-
-
+		System.out.println("\n\n______________________________________________________________\nStarting Test with reused medium Map 50x50:\n______________________________________________________________\n");
+		medMap.startGame();
 	}
 }

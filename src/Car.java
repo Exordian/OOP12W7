@@ -6,6 +6,9 @@
  *
  */
 public abstract class Car extends Thread {
+	private static final int maxScore = 10;
+	private static final int maxMoves = 150;
+	
 	private String name;
 	private int speed; // sleep in ms
 	private Integer score;
@@ -164,23 +167,23 @@ public abstract class Car extends Thread {
 
 	@Override
 	public void run() {
-		int round = 0;
+		int moves = 0;
 		while(!gameStopped) {
 			update();
 			drive();
 
-			if(score >= 10 || round >= 150) {
-				System.out.println("Game has ended!\n" + this.getCarName() + " has won!\n");
+			if(score >= maxScore || moves >= maxMoves) {
+				System.out.println("Game has ended!\n" + this.getCarName() + " has won! <------\n");
 				m.stopGame();
 			}
 
-			round++;
+			moves++;
 			try {
 				Thread.sleep(speed);
 			} catch (InterruptedException e) {
 				this.stopGame(); // or just break / Thread.exit()
 			}
 		}
-		System.out.println(this.getCarName() + " has scored " + score + " points with " + round + " rounds.");
+		System.out.println(this.getCarName() + " has scored " + score + " points with " + moves + " moves.");
 	}
 }
